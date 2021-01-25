@@ -1,0 +1,11 @@
+.metadata
+/spring-boot-di
+/spring-boot-form
+/spring-boot-microservicio-clientes
+/spring-boot-servicio-clientes
+/springboot-servicio-commons
+/springboot-servicio-config-server
+/springboot-servicio-eureka-server
+/springboot-servicio-item
+/springboot-servicio-productos
+/springboot-servicio-zuul-server
