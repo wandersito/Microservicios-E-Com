@@ -1,26 +1,8 @@
-package com.ecommerce.app.productos.entity;
+package com.ecommerce.app.facturas.entity;
 
-import java.io.Serializable;
+public class Producto{
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "productos")
-public class Producto implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4206073350682136466L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	private String nombre;
 	private String descripcion;
 	private String img;

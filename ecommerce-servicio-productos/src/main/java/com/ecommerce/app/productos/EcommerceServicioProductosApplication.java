@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @EnableEurekaClient
 @SpringBootApplication
-//@EntityScan({"com.ecommerce.app.commons.entity"})
+@EntityScan({"com.ecommerce.app.commons.models.productos"})
 public class EcommerceServicioProductosApplication {
 
 	public static void main(String[] args) {
