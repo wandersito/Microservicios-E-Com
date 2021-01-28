@@ -2,8 +2,11 @@ package com.ecommerce.app.productos.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +24,10 @@ public class ProductoController extends CommonController<Producto, ProductoServi
 	
 	
 	@PutMapping("/editar/{id}")
-	public ResponseEntity<Producto> editar(@PathVariable Long id, @RequestBody Producto producto) throws Exception{
+	public ResponseEntity<?> editar(@Valid @RequestBody Producto producto, BindingResult result, @PathVariable Long id) throws Exception{
+		if(result.hasErrors()) {
+			return this.validar(result);
+		}
 		Producto productoBD = service.findById(id);
 		if(productoBD != null ) {
 			producto.setId(id);

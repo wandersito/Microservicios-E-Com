@@ -1,6 +1,7 @@
 package com.ecommerce.app.commons.models.productos;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,12 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.ecommerce.app.commons.models.facturas.Factura;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "productos")
@@ -25,23 +28,16 @@ public class Producto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String nombre;
+	@NotEmpty
+	private String nombre; 
+	
+	@NotEmpty
 	private String descripcion;
+	
 	private String img;
+	
+	@NotNull
 	private Double precio;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "factura_id")
-	@JsonIgnore
-	private Factura factura;
-
-	public Factura getFactura () {
-		return factura;
-	}
-
-	public void setFactura(Factura factura) {
-		this.factura = factura;
-	}
 
 	public Producto() {
 	}

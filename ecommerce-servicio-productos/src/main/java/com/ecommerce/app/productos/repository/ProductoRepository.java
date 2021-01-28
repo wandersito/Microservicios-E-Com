@@ -11,7 +11,7 @@ import com.ecommerce.app.commons.models.productos.Producto;
 
 public interface ProductoRepository extends PagingAndSortingRepository<Producto, Long>, JpaRepository<Producto, Long>{
 
-	@Query("select p from Producto p where p.nombre like %?1% or select p.descripcion like %?1% ")
+	@Query("select p from Producto p where p.nombre like %?1% or p.descripcion like %?1% ")
 	public List<Producto> findByIdOrDescripcion(String term);
 	
 }

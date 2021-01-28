@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.ecommerce.app.commons.models.productos.Producto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -28,11 +30,12 @@ public class Factura implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty
 	private String descripcion;
 	
 	private String observacion;
 	
-	@OneToMany(mappedBy="factura", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productos;
 	
 	public Factura() {
@@ -49,7 +52,6 @@ public class Factura implements Serializable{
 	
 	public void addProductos(Producto producto) {
 		this.productos.add(producto);
-		producto.setFactura(this);
 	}
 	
 	public void removeProductos(Producto producto) {

@@ -1,10 +1,15 @@
 package com.ecommerce.app.commons.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +49,11 @@ public class CommonController<T, S extends ICommonService<T>> {
 	}
 	
 	@PostMapping("/crear")
-	public ResponseEntity<T> guardar(@RequestBody T entity){
+	public ResponseEntity<?> guardar(@Valid @RequestBody T entity, BindingResult result){
+		if(result.hasErrors()) {
+			return this.validar(result);
+		}
+		
 		T entityBD = service.save(entity);
 		if(entityBD != null ) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(entityBD);
@@ -61,15 +70,12 @@ public class CommonController<T, S extends ICommonService<T>> {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	}
 	
-//	@PutMapping("/editar/{id}")
-//	public ResponseEntity<T> editar(@PathVariable Long id, @RequestBody T entity) throws Exception{
-//		T entityBD = service.save(entity, id);
-//		if(entityBD != null ) {
-//			return ResponseEntity.status(HttpStatus.OK).body(entityBD);
-//		}
-//		else {
-//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(entityBD);
-//		}
-//	}
+	protected ResponseEntity<?> validar(BindingResult result){
+		Map<String, Object> errores = new HashMap<>();
+		result.getFieldErrors().forEach( err -> {
+			errores.put(err.getField(), err.getDefaultMessage() );
+		});
+		return ResponseEntity.badRequest().body(errores);
+	}
 	
 }
