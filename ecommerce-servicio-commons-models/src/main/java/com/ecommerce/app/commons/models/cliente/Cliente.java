@@ -4,15 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.ecommerce.app.commons.models.facturas.Factura;
 
@@ -20,16 +15,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor 
-@Entity
-@Table(name="clientes")
+@AllArgsConstructor
+@Document(collection = "clientes")
 public class Cliente implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY )
-	private Long id;
+	private String id;
 	
 	@NotEmpty
 	private String nombre;
@@ -38,7 +31,6 @@ public class Cliente implements Serializable{
 	private String apellido;
 	private String email;
 	
-	@OneToMany(mappedBy = "cliente" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Factura> facturas;
 	
 	public Cliente() {
