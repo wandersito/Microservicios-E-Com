@@ -18,7 +18,7 @@ public class CommonService<T, R extends JpaRepository<T, Long>> implements IComm
 
 	@Override
 	@Transactional(readOnly=true)
-	public List<T> read() throws Exception {
+	public List<T> findAll() throws Exception {
 		try {
 		return repository.findAll();
 		} catch( Exception e) {
@@ -28,7 +28,7 @@ public class CommonService<T, R extends JpaRepository<T, Long>> implements IComm
 
 	@Override
 	@Transactional(readOnly=true)
-	public T readOnlyOne(Long id) throws Exception {
+	public T findById(Long id) throws Exception {
 		try {
 			return repository.findById(id).orElse(null);
 		} catch( Exception e) {
@@ -39,26 +39,8 @@ public class CommonService<T, R extends JpaRepository<T, Long>> implements IComm
 
 	@Override
 	@Transactional
-	public T create(T Entity) {
+	public T save(T Entity) {
 		return repository.save(Entity);
-	}
-
-	@Override
-	@Transactional
-	public T update(T Entity, Long id) throws Exception {
-	
-		try {
-			T EntityBD = repository.findById(id).orElseThrow();
-			if(EntityBD != null) {
-//				Entity.setId(id);
-				return repository.save(Entity);
-			}else{
-				throw new Exception("No se pudo encontrar informacion de la entidad");
-			}
-		}catch(Exception e) {
-			throw new Exception("Error al actualizar la entidad");
-		}
-		
 	}
 
 	@Override
@@ -74,6 +56,22 @@ public class CommonService<T, R extends JpaRepository<T, Long>> implements IComm
 		return null;
 	}
 
-
+//	@Override
+//	@Transactional
+//	public T update(T Entity, Long id) throws Exception {
+//	
+//		try {
+//			T EntityBD = repository.findById(id).orElseThrow();
+//			if(EntityBD != null) {
+//				Entity.setId(id);
+//				return repository.save(Entity);
+//			}else{
+//				throw new Exception("No se pudo encontrar informacion de la entidad");
+//			}
+//		}catch(Exception e) {
+//			throw new Exception("Error al actualizar la entidad");
+//		}
+//		
+//	}
 
 }

@@ -6,13 +6,11 @@ import org.springframework.data.domain.Page;
 
 public interface ICommonService<T> {
 
-	public List<T> read() throws Exception;
+	public List<T> findAll() throws Exception;
 	
-	public T readOnlyOne(Long id) throws Exception;
+	public T findById(Long id) throws Exception;
 	
-	public T create(T Entity);
-	
-	public T update(T Entity, Long id) throws Exception;
+	public T save(T Entity);
 	
 	public void deleteByid(Long id);
 	

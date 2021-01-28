@@ -1,5 +1,6 @@
 package com.ecommerce.app.facturas.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -7,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.ecommerce.app.commons.models.productos.Producto;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
@@ -16,7 +20,9 @@ import javax.persistence.CascadeType;
 
 @Entity
 @Table(name="facturas")
-public class Factura {
+public class Factura implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +32,9 @@ public class Factura {
 	
 	private String observacion;
 	
-//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "factura_id")
-//	private List<Producto> productos;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "factura_id")
+	private List<Producto> productos;
 
 	public Long getId() {
 		return id;

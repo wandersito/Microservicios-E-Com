@@ -6,4 +6,6 @@ import com.ecommerce.app.commons.services.ICommonService;
 public interface IServiceProductos extends ICommonService<Producto>{
 
 	
+	
+	
 }
