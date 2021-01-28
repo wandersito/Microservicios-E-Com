@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.ecommerce.app.commons.models.productos.Producto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;

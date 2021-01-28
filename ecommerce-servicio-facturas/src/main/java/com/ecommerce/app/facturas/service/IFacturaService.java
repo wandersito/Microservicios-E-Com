@@ -5,4 +5,6 @@ import com.ecommerce.app.commons.services.ICommonService;
 
 public interface IFacturaService extends ICommonService<Factura>{
 
+	public Factura findFacturaByProducto(Long id);
+	
 }

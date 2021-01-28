@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,6 +60,11 @@ public class FacturaController extends CommonController<Factura, FacturaService>
 		return ResponseEntity.status(HttpStatus.OK).body(service.save(factura));
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(null);	
+	}
+	
+	@GetMapping("/producto/{id}")
+	public ResponseEntity<Factura> buscarFacturaPorProductoId(@PathVariable Long id){
+		return ResponseEntity.ok(service.findFacturaByProducto(id));
 	}
 
 }

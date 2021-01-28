@@ -27,7 +27,7 @@ public class CommonController<T, S extends ICommonService<T>> {
 		if(!lista.isEmpty()){
 			return ResponseEntity.status(HttpStatus.OK).body(lista);
 		}else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(lista);
+			return ResponseEntity.notFound().build();
 		}
 		
 	}
@@ -39,7 +39,7 @@ public class CommonController<T, S extends ICommonService<T>> {
 			return ResponseEntity.status(HttpStatus.OK).body(entityBD);
 		}
 		else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(entityBD);
+			return ResponseEntity.notFound().build();
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class CommonController<T, S extends ICommonService<T>> {
 			return ResponseEntity.status(HttpStatus.CREATED).body(entityBD);
 		}
 		else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(entityBD);
+			return ResponseEntity.notFound().build();
 		}
 		
 	}
