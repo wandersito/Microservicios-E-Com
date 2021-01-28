@@ -8,6 +8,6 @@ import com.ecommerce.app.productos.repository.ProductoRepository;
 
 @Service
 public class ProductoService extends CommonService<Producto, ProductoRepository> implements IServiceProductos {
-	
+
 	
 }
