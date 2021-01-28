@@ -9,9 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableEurekaClient
 @EnableFeignClients
 @SpringBootApplication
-@EntityScan({"com.ecommerce.app.commons.models.productos",
-			 "com.ecommerce.app.commons.models.facturas", 
-			 "com.ecommerce.app.commons.models.cliente"})
+@EntityScan({"com.ecommerce.app.commons.models.*"})
 public class EcommerceServicioFacturasApplication {
 
 	public static void main(String[] args) {

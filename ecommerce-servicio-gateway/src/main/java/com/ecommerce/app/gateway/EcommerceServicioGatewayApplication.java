@@ -1,17 +1,15 @@
-package com.ecommerce.app.clientes;
+package com.ecommerce.app.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @EnableEurekaClient
 @SpringBootApplication
-@EntityScan({"com.ecommerce.app.commons.models.*"})
-public class EcommerceServicioClientesApplication {
+public class EcommerceServicioGatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EcommerceServicioClientesApplication.class, args);
+		SpringApplication.run(EcommerceServicioGatewayApplication.class, args);
 	}
 
 }
