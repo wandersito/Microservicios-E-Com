@@ -11,11 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.ecommerce.app.commons.models.cliente.Cliente;
 import com.ecommerce.app.commons.models.productos.Producto;
 //import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
@@ -37,13 +40,13 @@ public class Factura implements Serializable{
 	
 	private String observacion;
 	
-	@JoinTable(
-	        name = "FACTURA_PRODUCTO",
-	        joinColumns = @JoinColumn(name = "FK_FACTURA", nullable = false),
-	        inverseJoinColumns = @JoinColumn(name="FK_PRODUCTO", nullable = false)
-	)
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productos;
+	
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="cliente_id")
+	private Cliente cliente;
 	
 	public Factura() {
 		this.productos = new ArrayList<>();
@@ -61,6 +64,14 @@ public class Factura implements Serializable{
 		this.productos.add(producto);
 	}
 	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	public void removeProductos(Producto producto) {
 		this.productos.remove(producto);
 	}

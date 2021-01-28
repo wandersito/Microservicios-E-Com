@@ -10,7 +10,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @SpringBootApplication
 @EntityScan({"com.ecommerce.app.commons.models.productos",
-			 "com.ecommerce.app.commons.models.facturas"})
+			 "com.ecommerce.app.commons.models.facturas", 
+			 "com.ecommerce.app.commons.models.cliente"})
 public class EcommerceServicioFacturasApplication {
 
 	public static void main(String[] args) {

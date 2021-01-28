@@ -1,5 +1,7 @@
 package com.ecommerce.app.clientes.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -8,11 +10,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.app.clientes.service.ClienteService;
 import com.ecommerce.app.commons.controllers.CommonController;
 import com.ecommerce.app.commons.models.cliente.Cliente;
+import com.ecommerce.app.commons.models.facturas.Factura;
 
+@RestController
 public class ClienteController extends CommonController<Cliente, ClienteService>{
 
 	@PutMapping("/editar/{id}")
@@ -31,6 +36,23 @@ public class ClienteController extends CommonController<Cliente, ClienteService>
 		else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
+	}
+	
+	@PutMapping("/{id}/agregar-facturas")
+	public ResponseEntity<Cliente> agregarProductos(@PathVariable Long id, 
+			@RequestBody List<Factura> facturas) throws Exception{
+		
+		Cliente cliente = service.findById(id);
+//		Producto prodBD = null;
+		if(cliente != null) {
+			cliente.setId(id);
+			facturas.forEach( factura -> {
+					cliente.addFacturas(factura);
+		});
+		
+		return ResponseEntity.status(HttpStatus.OK).body(service.save(cliente));
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(null);	
 	}
 	
 }
