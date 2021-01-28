@@ -1,6 +1,7 @@
 package com.ecommerce.app.commons.models.facturas;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -36,6 +37,23 @@ public class Factura implements Serializable{
 	private List<Producto> productos;
 	
 	public Factura() {
+		this.productos = new ArrayList<>();
+	}
+	
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+	
+	public void addProductos(Producto producto) {
+		this.productos.add(producto);
+	}
+	
+	public void removeProductos(Producto producto) {
+		this.productos.remove(producto);
 	}
 
 	public Long getId() {
@@ -67,6 +85,5 @@ public class Factura implements Serializable{
 		this.descripcion = descripcion;
 		this.observacion = observacion;
 	}
-
 	
 }

@@ -73,5 +73,19 @@ public class Producto implements Serializable{
 	public void setImg(String img) {
 		this.img = img;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+			
+		if(this == obj) {
+			return true;
+		}
+		if(!(obj instanceof Producto)) {
+			return false;
+		}
+		Producto p = (Producto) obj;
+		return this.id != null && this.id.equals(p.getId());
+
+	}
 
 }
