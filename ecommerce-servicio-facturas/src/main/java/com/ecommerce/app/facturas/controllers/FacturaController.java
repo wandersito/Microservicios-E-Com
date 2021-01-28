@@ -55,7 +55,9 @@ public class FacturaController extends CommonController<Factura, FacturaService>
 			productos.forEach( producto -> {
 				Producto prodBD = restProducto.detalle(producto.getId());
 				if(prodBD != null ) {
-				factura.addProductos(producto);
+					factura.addProductos(producto);
+				}else {
+					
 				}
 		});
 		

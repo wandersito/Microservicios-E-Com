@@ -8,14 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import com.ecommerce.app.commons.models.productos.Producto;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+//import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.OneToMany;
+//import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
 
@@ -35,6 +37,11 @@ public class Factura implements Serializable{
 	
 	private String observacion;
 	
+	@JoinTable(
+	        name = "FACTURA_PRODUCTO",
+	        joinColumns = @JoinColumn(name = "FK_FACTURA", nullable = false),
+	        inverseJoinColumns = @JoinColumn(name="FK_PRODUCTO", nullable = false)
+	)
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productos;
 	

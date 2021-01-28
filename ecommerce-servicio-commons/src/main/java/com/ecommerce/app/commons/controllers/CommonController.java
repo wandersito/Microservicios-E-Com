@@ -1,12 +1,13 @@
 package com.ecommerce.app.commons.controllers;
 
 import java.util.HashMap;
-import java.util.List;
+//import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -25,16 +26,15 @@ public class CommonController<T, S extends ICommonService<T>> {
 	protected S service;
 	
 	@GetMapping("/listar")
-	public ResponseEntity<List<T>> listar() throws Exception{
+	public ResponseEntity<Iterable<T>> listar() throws Exception{
 		
-		List<T> lista = service.findAll(); 
+		return ResponseEntity.ok().body(service.findAll());
+	}
+	
+	@GetMapping("/pagina")
+	public ResponseEntity<?> listar(Pageable pageable) throws Exception{
 		
-		if(!lista.isEmpty()){
-			return ResponseEntity.status(HttpStatus.OK).body(lista);
-		}else {
-			return ResponseEntity.notFound().build();
-		}
-		
+		return ResponseEntity.ok().body(service.pageable(pageable));
 	}
 	
 	@GetMapping("/ver/{id}")

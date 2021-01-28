@@ -1,15 +1,15 @@
 package com.ecommerce.app.commons.services;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Pageable;
+//import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-public class CommonService<T, R extends JpaRepository<T, Long>> implements ICommonService<T> {
+public class CommonService<T, R extends PagingAndSortingRepository<T, Long>> implements ICommonService<T> {
 	
 	Logger log = LoggerFactory.getLogger(CommonService.class);
 	
@@ -18,7 +18,7 @@ public class CommonService<T, R extends JpaRepository<T, Long>> implements IComm
 
 	@Override
 	@Transactional(readOnly=true)
-	public List<T> findAll() throws Exception {
+	public Iterable<T> findAll() throws Exception {
 		try {
 		return repository.findAll();
 		} catch( Exception e) {
@@ -51,27 +51,8 @@ public class CommonService<T, R extends JpaRepository<T, Long>> implements IComm
 
 	@Override
 	@Transactional(readOnly=true)
-	public Page<T> pageable(Integer pageNo, Integer pageSize, String sortBy) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<T> pageable(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
-
-//	@Override
-//	@Transactional
-//	public T update(T Entity, Long id) throws Exception {
-//	
-//		try {
-//			T EntityBD = repository.findById(id).orElseThrow();
-//			if(EntityBD != null) {
-//				Entity.setId(id);
-//				return repository.save(Entity);
-//			}else{
-//				throw new Exception("No se pudo encontrar informacion de la entidad");
-//			}
-//		}catch(Exception e) {
-//			throw new Exception("Error al actualizar la entidad");
-//		}
-//		
-//	}
 
 }

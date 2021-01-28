@@ -1,6 +1,7 @@
 package com.ecommerce.app.commons.models.productos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,14 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+//import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.ecommerce.app.commons.models.facturas.Factura;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 //import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -38,8 +39,12 @@ public class Producto implements Serializable {
 	
 	@NotNull
 	private Double precio;
+	
+	@ManyToMany(mappedBy = "productos")
+    private List<Factura> facturas;
 
 	public Producto() {
+		this.facturas = new ArrayList<>();
 	}
 
 	public Producto(Long id, String nombre, String descripcion, String img, Double precio) {
