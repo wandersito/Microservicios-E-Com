@@ -1,4 +1,4 @@
-package com.ecommerce.app.facturas.entity;
+package com.ecommerce.app.commons.models.facturas;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
-
 
 
 @Entity
@@ -35,6 +34,9 @@ public class Factura implements Serializable{
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "factura_id")
 	private List<Producto> productos;
+	
+	public Factura() {
+	}
 
 	public Long getId() {
 		return id;
@@ -66,7 +68,5 @@ public class Factura implements Serializable{
 		this.observacion = observacion;
 	}
 
-	public Factura() {
-	}
 	
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.app.commons.controllers.CommonController;
-import com.ecommerce.app.facturas.entity.Factura;
+import com.ecommerce.app.commons.models.facturas.Factura;
 import com.ecommerce.app.facturas.service.FacturaService;
 
 @RestController
