@@ -32,8 +32,7 @@ public class Factura implements Serializable{
 	
 	private String observacion;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "factura_id")
+	@OneToMany(mappedBy="factura", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productos;
 	
 	public Factura() {
@@ -50,6 +49,7 @@ public class Factura implements Serializable{
 	
 	public void addProductos(Producto producto) {
 		this.productos.add(producto);
+		producto.setFactura(this);
 	}
 	
 	public void removeProductos(Producto producto) {

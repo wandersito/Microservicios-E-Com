@@ -3,14 +3,19 @@ package com.ecommerce.app.commons.models.productos;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.ecommerce.app.commons.models.facturas.Factura;
 
 @Entity
 @Table(name = "productos")
-public class Producto implements Serializable{
+public class Producto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,6 +27,18 @@ public class Producto implements Serializable{
 	private String descripcion;
 	private String img;
 	private Double precio;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "factura_id")
+	private Factura factura;
+
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
 
 	public Producto() {
 	}
@@ -73,14 +90,14 @@ public class Producto implements Serializable{
 	public void setImg(String img) {
 		this.img = img;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-			
-		if(this == obj) {
+
+		if (this == obj) {
 			return true;
 		}
-		if(!(obj instanceof Producto)) {
+		if (!(obj instanceof Producto)) {
 			return false;
 		}
 		Producto p = (Producto) obj;
