@@ -40,7 +40,7 @@ public class CommonController<T, S extends ICommonService<T>> {
 	@GetMapping("/ver/{id}")
 	public ResponseEntity<T> ver(@PathVariable Long id) throws Exception{
 		T entityBD = service.findById(id);
-		if(service != null ) {
+		if(entityBD != null ) {
 			return ResponseEntity.status(HttpStatus.OK).body(entityBD);
 		}
 		else {

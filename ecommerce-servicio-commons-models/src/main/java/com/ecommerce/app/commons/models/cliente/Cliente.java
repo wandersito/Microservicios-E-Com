@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import com.ecommerce.app.commons.models.facturas.Factura;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,6 +39,7 @@ public class Cliente implements Serializable{
 	private String apellido;
 	private String email;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Factura> facturas;
 	

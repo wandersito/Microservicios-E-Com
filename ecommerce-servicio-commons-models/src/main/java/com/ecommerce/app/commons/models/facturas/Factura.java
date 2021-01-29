@@ -17,6 +17,7 @@ import javax.validation.constraints.NotEmpty;
 
 import com.ecommerce.app.commons.models.cliente.Cliente;
 import com.ecommerce.app.commons.models.productos.Producto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 //import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -40,10 +41,11 @@ public class Factura implements Serializable{
 	
 	private String observacion;
 	
+	@JsonBackReference
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productos;
 	
-	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
