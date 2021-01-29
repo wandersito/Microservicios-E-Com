@@ -5,7 +5,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,9 +25,23 @@ import com.ecommerce.app.commons.controllers.CommonController;
 import com.ecommerce.app.commons.models.productos.Producto;
 import com.ecommerce.app.productos.service.ProductoService;
 
-@CrossOrigin(origins= {"http://localhost:4200"})
+//@CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
 public class ProductoController extends CommonController<Producto, ProductoService> {
+	
+	@GetMapping("/uploads/img/{id}")
+	public ResponseEntity<?> verFoto(@PathVariable Long id) throws Exception{
+		Producto productoDB = service.findById(id);
+		
+		if(productoDB == null || productoDB.getFoto() == null){
+			return ResponseEntity.notFound().build();
+		}
+		
+		Resource imagen = new ByteArrayResource(productoDB.getFoto()); 
+		
+		return ResponseEntity.ok()
+				.contentType(MediaType.IMAGE_JPEG).body(imagen);
+	}
 	
 	@PutMapping("/editar/{id}")
 	public ResponseEntity<?> editar(@Valid @RequestBody Producto producto, BindingResult result, @PathVariable Long id) throws Exception{
@@ -36,9 +53,7 @@ public class ProductoController extends CommonController<Producto, ProductoServi
 			producto.setId(id);
 			return ResponseEntity.status(HttpStatus.OK).body(service.save(producto));
 		}
-		else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(producto);
-		}
 	}
 	
 	@GetMapping("/buscar/{term}")
@@ -68,9 +83,7 @@ public class ProductoController extends CommonController<Producto, ProductoServi
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(service.save(producto));
 		}
-		else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(producto);
-		}
 	}
 	
 	

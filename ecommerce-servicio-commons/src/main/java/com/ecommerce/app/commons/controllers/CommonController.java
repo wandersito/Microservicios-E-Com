@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,7 +49,7 @@ public class CommonController<T, S extends ICommonService<T>> {
 		}
 	}
 	
-	@PostMapping("/crear")
+	@PostMapping(value="/crear")
 	public ResponseEntity<?> guardar(@Valid @RequestBody T entity, BindingResult result){
 		if(result.hasErrors()) {
 			return this.validar(result);

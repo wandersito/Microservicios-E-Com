@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.app.clientes.restService.RestFactura;
 import com.ecommerce.app.clientes.service.ClienteService;
 import com.ecommerce.app.commons.controllers.CommonController;
 import com.ecommerce.app.commons.models.cliente.Cliente;
@@ -19,6 +21,9 @@ import com.ecommerce.app.commons.models.facturas.Factura;
 
 @RestController
 public class ClienteController extends CommonController<Cliente, ClienteService>{
+	
+	@Autowired
+	private RestFactura facturaRest;
 
 	@PutMapping("/editar/{id}")
 	public ResponseEntity<?> editar(@Valid @RequestBody Cliente cliente, BindingResult result, @PathVariable Long id)
@@ -33,9 +38,7 @@ public class ClienteController extends CommonController<Cliente, ClienteService>
 			cliente.setId(id);
 			return ResponseEntity.status(HttpStatus.OK).body(service.save(cliente));
 		}
-		else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		}
 	}
 	
 	@PutMapping("/{id}/agregar-facturas")
@@ -43,11 +46,10 @@ public class ClienteController extends CommonController<Cliente, ClienteService>
 			@RequestBody List<Factura> facturas) throws Exception{
 		
 		Cliente cliente = service.findById(id);
-//		Producto prodBD = null;
 		if(cliente != null) {
 			cliente.setId(id);
 			facturas.forEach( factura -> {
-					cliente.addFacturas(factura);
+					cliente.addFacturas(facturaRest.ver(id));
 		});
 		
 		return ResponseEntity.status(HttpStatus.OK).body(service.save(cliente));
